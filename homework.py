@@ -48,7 +48,7 @@ class Training:
         """Получить количество затраченных калорий."""
         pass
 
-    def show_training_info(self):
+    def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
         return InfoMessage(self.__class__.__name__,
                            self.duration,
