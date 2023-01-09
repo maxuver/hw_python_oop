@@ -1,3 +1,6 @@
+from typing import Dict, List, Type
+
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     def __init__(self,
@@ -32,6 +35,10 @@ class Training:
                  duration: float,
                  weight: float,
                  ) -> None:
+        """action - один из трёх видов тренировок.
+           duration - длительность тренировки в часах.
+           weight - вес спортсмена.
+        """
         self.action = action
         self.duration = duration
         self.weight = weight
@@ -61,14 +68,7 @@ class Training:
 class Running(Training):
     """Тренировка: бег."""
     COEFICIRNT_FOR_RUN_1 = int = 18
-    COEFICIENT_FOR_RUN_2 = int = 1.79
-
-    def __init__(self,
-                 action: int,
-                 duration: float,
-                 weight: float,
-                 ) -> None:
-        super().__init__(action, duration, weight)
+    COEFICIENT_FOR_RUN_2 = float = 1.79
 
     def get_spent_calories(self) -> float:
         return (((self.COEFICIRNT_FOR_RUN_1 * self.get_mean_speed()
@@ -130,14 +130,15 @@ class Swimming(Training):
                 * self.duration)
 
 
-def read_package(workout_type: str, data: list) -> Training:
+def read_package(workout_type: str, data: List[float]) -> Training:
     """Прочитать данные полученные от датчиков."""
-    if workout_type == 'SWM':
-        return Swimming(data[0], data[1], data[2], data[3], data[4])
-    elif workout_type == 'RUN':
-        return Running(data[0], data[1], data[2])
-    else:
-        return SportsWalking(data[0], data[1], data[2], data[3])
+    types_workout: Dict[str, Type[Training]] = {'SWM': Swimming,
+                                                'RUN': Running,
+                                                'WLK': SportsWalking
+                                                }
+    if workout_type not in types_workout:
+        raise ValueError("Такого кода тренировки не существует")
+    return types_workout[workout_type](*data)
 
 
 def main(training: Training) -> None:
