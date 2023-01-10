@@ -118,7 +118,7 @@ class Swimming(Training):
                  ) -> None:
         """length_pool - длина бассейна в метрах.
            count_pool - сколько раз пользователь переплыл бассейн.
-        """             
+        """
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
