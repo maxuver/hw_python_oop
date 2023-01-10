@@ -35,7 +35,8 @@ class Training:
                  duration: float,
                  weight: float,
                  ) -> None:
-        """action - один из трёх видов тренировок.
+        """action - количество совершённых действий (число
+           шагов при ходьбе и беге либо гребков — при плавании)
            duration - длительность тренировки в часах.
            weight - вес спортсмена.
         """
@@ -90,6 +91,7 @@ class SportsWalking(Training):
                  weight: float,
                  height: float
                  ) -> None:
+        """height - рост спортсмена в метрах."""
         super().__init__(action, duration, weight)
         self.height = height
 
@@ -114,6 +116,9 @@ class Swimming(Training):
                  length_pool: float,
                  count_pool: float
                  ) -> None:
+        """length_pool - длина бассейна в метрах.
+           count_pool - сколько раз пользователь переплыл бассейн.
+        """             
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
